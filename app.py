@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(
     page_title="Credit Risk Predictor",
-    page_icon="🏦",
+    page_icon="",
     layout="wide"
 )
 
@@ -54,14 +54,14 @@ def make_gauge(probability):
 st.markdown(
     "<div style='background:linear-gradient(135deg,#1a237e,#283593);"
     "padding:20px 30px;border-radius:12px;margin-bottom:24px;'>"
-    "<h1 style='color:white;margin:0;font-size:2rem;'>🏦 Credit Risk Predictor</h1>"
+    "<h1 style='color:white;margin:0;font-size:2rem;'> Credit Risk Predictor</h1>"
     "<p style='color:#90caf9;margin:6px 0 0;font-size:1rem;'>"
     "Gradient Boosting &middot; Threshold = 0.35 &middot; AUC-ROC = 0.945"
     "</p></div>",
     unsafe_allow_html=True
 )
 
-st.sidebar.header("📋 Borrower Details")
+st.sidebar.header(" Borrower Details")
 st.sidebar.markdown("Enter the loan application details below.")
 
 with st.sidebar:
@@ -107,7 +107,7 @@ def build_features():
 col_left, col_right = st.columns([1, 1], gap="large")
 
 with col_left:
-    st.subheader("📊 Risk Assessment")
+    st.subheader(" Risk Assessment")
     if predict_btn:
         df_input, raw_features = build_features()
         df_scaled   = scaler.transform(df_input)
@@ -118,14 +118,14 @@ with col_left:
 
         if prediction == 1:
             st.error(
-                f"### ⚠️ HIGH DEFAULT RISK\n"
+                f"###  HIGH DEFAULT RISK\n"
                 f"**Default Probability: {probability*100:.1f}%**  \n"
                 f"This application exceeds the risk threshold of 35%.  \n"
                 f"Recommend: Manual review or decline."
             )
         else:
             st.success(
-                f"### ✅ LOW DEFAULT RISK\n"
+                f"###  LOW DEFAULT RISK\n"
                 f"**Default Probability: {probability*100:.1f}%**  \n"
                 f"This application is below the risk threshold of 35%.  \n"
                 f"Recommend: Proceed with standard due diligence."
@@ -143,10 +143,10 @@ with col_left:
         m3.metric("EMI-to-Income",  f"{emir:.2%}",
                   delta="High" if emir > 0.3 else "Normal", delta_color="inverse")
     else:
-        st.info("👈 Fill in the borrower details on the left and click **Assess Credit Risk**.")
+        st.info(" Fill in the borrower details on the left and click **Assess Credit Risk**.")
 
 with col_right:
-    st.subheader("ℹ️ Model Information")
+    st.subheader(" Model Information")
     st.markdown(
         "| Item | Detail |\n"
         "|------|--------|\n"
@@ -157,20 +157,20 @@ with col_right:
         "| **Threshold** | 0.35 (optimised from 0.50) |\n"
         "| **SMOTE** | Applied to training set only |\n"
         "| **Scaler** | StandardScaler (fit on train) |\n\n"
-        "#### ⚙️ How the Score is Calculated\n"
+        "####  How the Score is Calculated\n"
         "1. Raw inputs are combined with derived ratios  \n"
         "   (Loan-to-Income, Debt-to-Income, EMI-to-Income).\n"
         "2. All features are standardised using the saved `StandardScaler`.\n"
         "3. The Gradient Boosting model outputs a **probability of default**.\n"
         "4. If probability >= **0.35** → classified as **High Risk**.\n\n"
-        "#### 🎯 Threshold Rationale\n"
+        "####  Threshold Rationale\n"
         "The default threshold of 0.50 was lowered to **0.35** because  \n"
         "missing a true defaulter (false negative) is costlier than  \n"
         "flagging a safe borrower for review (false positive).  \n"
         "This threshold maximises the F1-score across the test set.\n"
     )
 
-    st.markdown("#### 📁 Artefacts Used")
+    st.markdown("####  Artefacts Used")
     st.code(
         "gradient_boosting_model.pkl  <- trained model\n"
         "scaler.pkl                   <- StandardScaler\n"

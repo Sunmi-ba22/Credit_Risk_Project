@@ -11,13 +11,13 @@ st.set_page_config(
 )
 
 @st.cache_resource
-def load_artefacts():
+def load_artifacts():
     model    = joblib.load("gradient_boosting_model")
     scaler   = joblib.load("scaler")
     features = joblib.load("feature_columns")
     return model, scaler, features
 
-model, scaler, feature_columns = load_artefacts()
+model, scaler, feature_columns = load_artifacts()
 THRESHOLD = 0.35
 
 def make_gauge(probability):
@@ -170,7 +170,7 @@ with col_right:
         "This threshold maximises the F1-score across the test set.\n"
     )
 
-    st.markdown("####  Artefacts Used")
+    st.markdown("####  Artifacts Used")
     st.code(
         "gradient_boosting_model  <- trained model\n"
         "scaler                   <- StandardScaler\n"

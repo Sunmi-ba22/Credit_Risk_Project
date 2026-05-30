@@ -12,9 +12,9 @@ st.set_page_config(
 
 @st.cache_resource
 def load_artifacts():
-    model    = joblib.load("gradient_boosting_model")
-    scaler   = joblib.load("scaler")
-    features = joblib.load("feature_columns")
+    model    = joblib.load("gradient_boosting_model.pkl")
+    scaler   = joblib.load("scaler.pkl")
+    features = joblib.load("feature_columns.pkl")
     return model, scaler, features
 
 model, scaler, feature_columns = load_artifacts()
@@ -172,9 +172,9 @@ with col_right:
 
     st.markdown("####  Artifacts Used")
     st.code(
-        "gradient_boosting_model  <- trained model\n"
-        "scaler                   <- StandardScaler\n"
-        "feature_column          <- column order\n"
+        "gradient_boosting_model.pkl  <- trained model\n"
+        "scaler.pkl                   <- StandardScaler\n"
+        "feature_column.pkl          <- column order\n"
         "app.py                       <- this application",
         language="bash"
     )
